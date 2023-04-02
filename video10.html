@@ -1,0 +1,123 @@
+
+<html>
+  <head>
+    <title>Parada Pra Ação!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image.prod.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+    <style>
+  .button1 {
+    background-color: #FF0000; 
+    border: none;
+    color: white;
+    padding: 7px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    border: 2px solid rgba(9, 148, 28, 0.541);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); 
+    visibility: hidden;
+  }
+    
+  .button2 {
+    background-color: #A9A9A9; 
+    border: none;
+    color: white;
+    padding: 7px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    border: 2px solid rgba(9, 148, 28, 0.541);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); 
+    visibility: hidden;
+  }
+  </style>
+  
+  <div style="position: relative; top: 10px; width:100%; text-align: center; z-index: 1;">
+    
+    <button class="button2" id="btn1">
+      <span class="material-icons">stop</span>
+    </button>
+    
+    <button class="button1" id="btn2">
+      <span class="material-icons">play_arrow</span>
+    </button>
+    
+  </div>
+  
+  <body>
+    
+    <!-- Incluir marcador para rastreamento -->
+    <a-scene mindar-image="imageTargetSrc: https://cdn.glitch.global/a2613b89-d105-4736-aa22-b32a8aaaadf3/targets(31).mind?v=1664028966749;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights"
+             vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: true">
+      
+      <!-- Gerenciador de arquivo -->
+      <a-assets>
+        <video id="video" playsinline autoplay preload="auto" loop="true" src="https://cdn.glitch.global/a2613b89-d105-4736-aa22-b32a8aaaadf3/welliton?v=1664028928366" />
+      </a-assets>
+      
+      <!-- camera do usuario -->
+      <a-camera position="0 0.5 0" look-controls="enabled: false"></a-camera>
+      
+      <!-- target -->
+      <a-entity id="marcador" mindar-image-target="targetIndex: 0">
+        
+          <!-- conteudo em video -->
+          <a-video  src="#video" width="0.80" height="1.20" position="0 0 0"></a-video>
+        
+      </a-entity>
+      
+    </a-scene>
+    
+    <script>
+        var m = document.querySelector("#marcador")
+        
+        m.addEventListener("targetFound", (e)=>{
+        
+        var v = document.querySelector('#video').play();
+
+        var btn3 = document.querySelector("#btn1").style.visibility = "visible";
+
+        var btn4 = document.querySelector("#btn2").style.visibility = "visible";
+          
+        })
+        
+        m.addEventListener("targetLost", (e)=>{
+
+        var v = document.querySelector('#video').pause();
+
+        var btn3 = document.querySelector("#btn1").style.visibility = "hidden";
+
+        var btn4 = document.querySelector("#btn2").style.visibility = "hidden";
+        
+        })
+          
+        document.getElementById("btn1").addEventListener("click", (e)=>{
+          var v = document.querySelector('#video').pause();
+        })
+          
+        document.getElementById("btn2").addEventListener("click", (e)=>{
+          var v = document.querySelector('#video').play();
+        })
+
+        </script>
+    
+  </body>
+  
+</html>
